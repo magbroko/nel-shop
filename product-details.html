@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-NG">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NelShop - Product details. Same-day delivery to Asaba, Okpanam, Koka. Premium shopping in Delta State.">
+    <title>Product Details | NelShop - Asaba, Delta State</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: { 50: '#f7f7f7', 100: '#e3e3e3', 200: '#c8c8c8', 300: '#a4a4a4', 400: '#818181', 500: '#666666', 600: '#515151', 700: '#434343', 800: '#383838', 900: '#1a1a1a', 950: '#0f0f0f' },
+                        accent: { DEFAULT: '#2563eb', hover: '#1d4ed8', light: '#3b82f6' }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'] },
+                    boxShadow: { soft: '0 8px 30px rgb(0,0,0,0.04)', glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)' }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans antialiased bg-slate-50 text-charcoal-900">
+    <!-- Header (shared) -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <div class="bg-charcoal-900 text-white py-2 px-4 text-sm">
+            <div class="max-w-7xl mx-auto">Delivering to <strong>Asaba</strong> • Okpanam, Koka & environs | Pay on Delivery | Same-Day</div>
+        </div>
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold">Nel<span class="text-accent">Shop</span></a>
+            <div class="flex items-center gap-4">
+                <a href="category.html?category=electronics" class="hidden md:inline text-sm font-medium hover:text-accent">Electronics</a>
+                <a href="category.html?category=fashion" class="hidden md:inline text-sm font-medium hover:text-accent">Fashion</a>
+                <a href="category.html?category=groceries" class="hidden md:inline text-sm font-medium hover:text-accent">Groceries</a>
+                <a href="category.html?category=local" class="hidden md:inline text-sm font-medium hover:text-accent">Local</a>
+                <a href="checkout.html" class="relative flex items-center gap-2 px-4 py-2 rounded-xl bg-accent text-white text-sm font-medium" id="cartBtn">
+                    Cart <span class="cart-count-badge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+        <div id="productNotFound" class="hidden text-center py-20">
+            <p class="text-charcoal-500 text-lg">Product not found.</p>
+            <a href="index.html" class="mt-4 inline-block text-accent font-medium">← Back to Home</a>
+        </div>
+
+        <div id="productContent" class="hidden">
+            <!-- Breadcrumb -->
+            <nav class="text-sm text-charcoal-500 mb-6">
+                <a href="index.html" class="hover:text-accent">Home</a>
+                <span class="mx-2">/</span>
+                <a href="category.html" class="hover:text-accent" id="breadcrumbCategory">Category</a>
+                <span class="mx-2">/</span>
+                <span id="breadcrumbName" class="text-charcoal-900">Product</span>
+            </nav>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Gallery -->
+                <div class="space-y-4">
+                    <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                        <img id="mainImage" src="" alt="" class="w-full h-full object-cover transition-all duration-300">
+                    </div>
+                    <div class="flex gap-2 overflow-x-auto pb-2" id="thumbnailStrip"></div>
+                </div>
+
+                <!-- Details -->
+                <div>
+                    <div class="flex items-start gap-3 mb-4">
+                        <span id="productBadge" class="hidden px-3 py-1 rounded-lg bg-accent text-white text-sm font-medium"></span>
+                        <span id="productDiscount" class="hidden px-3 py-1 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-sm font-medium"></span>
+                        <span id="asabaExpressBadge" class="hidden px-3 py-1 rounded-lg bg-green-100 text-green-700 text-sm font-medium">⚡ Asaba Express (2hr)</span>
+                    </div>
+                    <h1 id="productName" class="text-2xl md:text-3xl font-bold text-charcoal-900 mb-2"></h1>
+                    <p id="productBrand" class="text-charcoal-500 text-sm mb-4"></p>
+                    <div class="flex items-baseline gap-3 mb-6">
+                        <span id="productPrice" class="text-2xl font-bold text-accent"></span>
+                        <span id="productOriginalPrice" class="hidden text-lg text-charcoal-400 line-through"></span>
+                    </div>
+                    <p id="productDesc" class="text-charcoal-600 mb-6"></p>
+
+                    <!-- Add to Cart -->
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden">
+                            <button type="button" id="qtyMinus" class="w-12 h-12 flex items-center justify-center hover:bg-slate-100 transition-colors">−</button>
+                            <input type="number" id="qtyInput" value="1" min="1" max="99" class="w-14 h-12 text-center border-0 border-x border-slate-200 focus:ring-0">
+                            <button type="button" id="qtyPlus" class="w-12 h-12 flex items-center justify-center hover:bg-slate-100 transition-colors">+</button>
+                        </div>
+                        <button type="button" id="addToCartBtn" class="flex-1 min-w-[200px] py-3 px-6 rounded-xl bg-accent text-white font-medium hover:bg-accent-hover transition-all hover:scale-[1.02] active:scale-[0.98]">
+                            Add to Cart
+                        </button>
+                        <button type="button" id="wishlistBtn" class="w-12 h-12 rounded-xl border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors" aria-label="Add to wishlist">
+                            <svg id="wishlistIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Specs -->
+                    <div class="rounded-2xl border border-slate-100 bg-white/80 backdrop-blur p-6 mb-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                        <h3 class="font-semibold text-charcoal-900 mb-4">Specifications</h3>
+                        <dl class="space-y-2" id="specsList"></dl>
+                    </div>
+
+                    <!-- Shipping Info -->
+                    <div class="rounded-2xl border border-slate-100 bg-white/80 backdrop-blur p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                        <h3 class="font-semibold text-charcoal-900 mb-4">Shipping to Asaba & Environs</h3>
+                        <ul class="space-y-2 text-charcoal-600 text-sm">
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Same-day delivery to Asaba, Okpanam, Koka (order before 12pm)</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Asaba Express: 2-hour delivery for eligible items</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> We deliver to Summit Rd, Nnebisi, GRA, Ogbogonogo & more</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Pay on Delivery (cash or card)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Items -->
+            <section class="mt-16 pt-12 border-t border-slate-200">
+                <h2 class="text-xl font-bold text-charcoal-900 mb-6">Related Items</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="relatedGrid"></div>
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/js/store.js"></script>
+    <script src="assets/js/product-details.js"></script>
+</body>
+</html>
