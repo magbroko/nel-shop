@@ -106,6 +106,438 @@ input[type="range"]::-webkit-slider-thumb {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Super Admin Dashboard - Glassmorphism & Premium UI */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.08), 0 4px 16px -4px rgba(0, 0, 0, 0.04), 0 1px 0 0 rgba(255, 255, 255, 0.5) inset;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.glass-card:hover {
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.12), 0 6px 20px -6px rgba(0, 0, 0, 0.06), 0 1px 0 0 rgba(255, 255, 255, 0.6) inset;
+}
+.dark .glass-card,
+.dark .kpi-card.glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.3), 0 4px 16px -4px rgba(0, 0, 0, 0.2), 0 1px 0 0 rgba(255, 255, 255, 0.05) inset;
+}
+.dark .glass-card:hover,
+.dark .kpi-card.glass-card:hover {
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.4), 0 6px 20px -6px rgba(0, 0, 0, 0.25), 0 1px 0 0 rgba(255, 255, 255, 0.08) inset;
+}
+
+.admin-table tbody tr:nth-child(even) {
+  background-color: rgb(248 250 252 / 0.6);
+}
+.dark .admin-table tbody tr:nth-child(even) {
+  background-color: rgba(30, 41, 59, 0.3);
+}
+.admin-table tbody tr {
+  transition: opacity 0.3s ease;
+}
+.admin-table tbody tr.row-fade-out {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+/* Skeleton shimmer */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, rgb(241 245 249) 25%, rgb(226 232 240) 50%, rgb(241 245 249) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
+/* Customer Dashboard - Sidebar (flush active state, no floating box) */
+.customer-nav .nav-link {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  transition: background 0.3s ease-out, color 0.3s ease-out;
+}
+.customer-nav .nav-link-active {
+  background: linear-gradient(to right, rgba(99, 102, 241, 0.2), transparent) !important;
+  border-radius: 0 0.75rem 0.75rem 0;
+}
+.customer-nav .nav-indicator {
+  transition: opacity 0.25s ease-out;
+}
+.customer-nav .nav-link-active .nav-indicator {
+  width: 4px;
+  min-height: 100%;
+  background: #6366f1;
+  box-shadow: 0 0 12px 2px rgba(99, 102, 241, 0.7), 0 0 24px 4px rgba(99, 102, 241, 0.3);
+}
+.customer-nav .nav-link-active .nav-icon {
+  filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.5));
+}
+
+/* Customer Dashboard - Frosted glass & layer shadows */
+.customer-glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 6px -2px rgba(0, 0, 0, 0.15),
+    0 10px 20px -5px rgba(0, 0, 0, 0.2),
+    0 20px 40px -10px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Customer Dashboard - Premium UI */
+.customer-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 0.15s ease-out;
+  border-radius: 1rem;
+}
+
+/* Order card - glassmorphism + layer shadow */
+.order-card-glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.15),
+    0 6px 12px -3px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Order card - metallic frame, lift on hover */
+.order-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 4px 6px -2px rgba(0, 0, 0, 0.2),
+    0 12px 24px -6px rgba(0, 0, 0, 0.25),
+    0 24px 48px -12px rgba(0, 0, 0, 0.2);
+}
+
+.order-card-image {
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+.order-card:hover .order-card-image,
+.order-card-image:hover {
+  transform: scale(1.02);
+  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.5), 0 0 16px rgba(212, 175, 55, 0.12), 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Status badges - minimal tint + glowing text */
+.status-glow-amber {
+  background: rgba(251, 191, 36, 0.08);
+  color: #fbbf24;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5), 0 0 20px rgba(251, 191, 36, 0.25);
+}
+.status-glow-cyan {
+  background: rgba(34, 211, 238, 0.08);
+  color: #22d3ee;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.5), 0 0 20px rgba(34, 211, 238, 0.25);
+}
+.status-glow-emerald {
+  background: rgba(52, 211, 153, 0.08);
+  color: #34d399;
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.5), 0 0 20px rgba(52, 211, 153, 0.25);
+}
+.status-glow-slate {
+  background: rgba(148, 163, 184, 0.06);
+  color: #94a3b8;
+  text-shadow: 0 0 6px rgba(148, 163, 184, 0.3);
+}
+
+.view-details-link {
+  position: relative;
+  display: inline-block;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.view-details-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.8), rgba(212, 175, 55, 0.4));
+  transform: scaleX(0.3);
+  transform-origin: left;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.view-details-link:hover::after {
+  transform: scaleX(1);
+}
+.view-details-link:hover {
+  transform: translateY(-1px);
+}
+
+.nav-icon {
+  transition: transform 0.2s ease;
+}
+.nav-link:hover .nav-icon,
+.nav-link-active .nav-icon {
+  animation: nav-icon-pulse 1.5s ease-in-out infinite;
+}
+@keyframes nav-icon-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.9; }
+}
+
+/* ============================================
+   Customer Dashboard - Light Theme
+   Pixel-perfect counterpart to dark theme
+   ============================================ */
+
+/* Theme transition - 0.3s ease-in-out for seamless switch */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.3s ease-in-out, background 0.3s ease-in-out,
+    color 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+    text-shadow 0.3s ease-in-out, fill 0.3s ease-in-out, stroke 0.3s ease-in-out !important;
+}
+
+/* Light theme - body & layout */
+html.light body {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+/* Light theme - Sidebar */
+html.light aside#sidebar {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-right-color: #e0e0e0 !important;
+}
+
+html.light aside#sidebar .border-b,
+html.light aside#sidebar .border-t {
+  border-color: #e0e0e0 !important;
+}
+
+html.light aside#sidebar a.text-xl {
+  color: #333333 !important;
+}
+
+html.light aside#sidebar a.text-xl span {
+  color: #6c5ce7 !important; /* Purple accent - slightly lightened for contrast */
+}
+
+html.light aside#sidebar .text-slate-400,
+html.light aside#sidebar p.text-slate-400 {
+  color: #666666 !important;
+}
+
+/* Light theme - Nav links */
+html.light .customer-nav .nav-link {
+  color: #666666 !important;
+}
+
+html.light .customer-nav .nav-link:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #333333 !important;
+}
+
+html.light .customer-nav .nav-link-active {
+  background: linear-gradient(to right, rgba(108, 92, 231, 0.12), transparent) !important;
+  color: #333333 !important;
+}
+
+html.light .customer-nav .nav-link-active .nav-indicator {
+  background: #6c5ce7 !important;
+  box-shadow: 0 0 12px 2px rgba(108, 92, 231, 0.6), 0 0 24px 4px rgba(108, 92, 231, 0.25) !important;
+}
+
+/* Light theme - Main content area */
+html.light #mainContent {
+  background-color: #ffffff !important;
+}
+
+/* Light theme - Customer glass container (main content card) */
+html.light .customer-glass {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Light theme - Large watermark "My Orders" */
+html.light .customer-section-title {
+  color: rgba(0, 0, 0, 0.06) !important; /* Subtle grey watermark visible on white */
+}
+
+/* Light theme - Welcome text */
+html.light #welcome-text,
+html.light .text-slate-400 {
+  color: #666666 !important;
+}
+
+html.light #user-name {
+  color: #333333 !important;
+  font-weight: 700;
+}
+
+/* Light theme - Order cards */
+html.light .order-card,
+html.light .order-card-glass {
+  background: #f8f9fa !important;
+  border-color: #e0e0e0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+html.light .order-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Light theme - Order card text */
+html.light .order-card .text-slate-100,
+html.light .order-card h3 {
+  color: #333333 !important;
+}
+
+html.light .order-card .text-slate-400,
+html.light .order-card .font-mono {
+  color: #666666 !important;
+}
+
+html.light .order-card .font-bold.font-mono {
+  color: #333333 !important;
+}
+
+/* Light theme - Product image frame (richer golden border) */
+html.light .order-card-image {
+  border: 2px solid rgba(212, 175, 55, 0.6) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(212, 175, 55, 0.3) !important;
+}
+
+html.light .order-card:hover .order-card-image,
+html.light .order-card-image:hover {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.95), 0 0 12px rgba(212, 175, 55, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  border-color: rgba(212, 175, 55, 0.8) !important;
+}
+
+/* Light theme - Status badges (solid colors, no glow) */
+html.light .status-glow-amber {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #f59e0b !important;
+  text-shadow: none !important;
+}
+
+html.light .status-glow-cyan {
+  background: rgba(34, 211, 238, 0.15) !important;
+  color: #22d3ee !important;
+  text-shadow: none !important;
+}
+
+html.light .status-glow-emerald {
+  background: rgba(52, 211, 153, 0.15) !important;
+  color: #34d399 !important;
+  text-shadow: none !important;
+}
+
+html.light .status-glow-slate {
+  background: rgba(148, 163, 184, 0.2) !important;
+  color: #64748b !important;
+  text-shadow: none !important;
+}
+
+/* Light theme - View Details link (golden) */
+html.light .view-details-link {
+  color: #d4af37 !important;
+}
+
+html.light .view-details-link:hover {
+  color: #b8962e !important;
+}
+
+html.light .view-details-link::after {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.9), rgba(212, 175, 55, 0.5)) !important;
+}
+
+/* Light theme - Theme toggle button */
+html.light .theme-toggle {
+  border-color: #e0e0e0 !important;
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light .theme-toggle:hover {
+  border-color: #ccc !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Theme toggle icon visibility: sun in dark mode, moon in light mode */
+html:not(.light) .theme-icon-light {
+  display: none !important;
+}
+
+html:not(.light) .theme-icon-dark {
+  display: inline-flex !important;
+}
+
+html.light .theme-icon-dark {
+  display: none !important;
+}
+
+html.light .theme-icon-light {
+  display: inline-flex !important;
+}
+
+/* Light theme - Mobile header */
+html.light header.lg\:hidden {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #e0e0e0 !important;
+}
+
+html.light header.lg\:hidden a {
+  color: #333333 !important;
+}
+
+html.light header.lg\:hidden a span {
+  color: #6c5ce7 !important;
+}
+
+/* Light theme - Track shipment, Profile, Wishlist panels */
+html.light .customer-glass.rounded-xl {
+  background: #f8f9fa !important;
+  border-color: #e0e0e0 !important;
+}
+
+html.light .customer-glass label,
+html.light .customer-glass .text-slate-300 {
+  color: #666666 !important;
+}
+
+html.light .customer-glass input {
+  background: #ffffff !important;
+  border-color: #e0e0e0 !important;
+  color: #333333 !important;
+}
+
+html.light .customer-glass input::placeholder {
+  color: #999 !important;
+}
+
+/* Light theme - Nav overlay */
+html.light #navOverlay {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Light theme - Back to Store link */
+html.light aside a.text-slate-400:hover {
+  color: #6c5ce7 !important;
+}
+
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -115,8 +547,16 @@ input[type="range"]::-webkit-slider-thumb {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition-duration: 0.01ms !important;
+  }
   .emoji-pulse,
-  .cart-badge-pulse {
+  .cart-badge-pulse,
+  .skeleton,
+  .nav-icon {
     animation: none;
   }
 }
