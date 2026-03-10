@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-NG">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product | NelShop Vendor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: { 50: '#f7f7f7', 900: '#1a1a1a' },
+                        accent: { DEFAULT: '#2563eb', hover: '#1d4ed8' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    <!-- Top bar -->
+    <header class="sticky top-0 z-20 bg-white border-b border-slate-200 px-4 md:px-6 py-4">
+        <div class="max-w-3xl mx-auto flex items-center justify-between">
+            <a href="brand-admin.html" class="flex items-center gap-2 text-slate-600 hover:text-slate-800 text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                Back to Dashboard
+            </a>
+            <a href="../index.html" class="text-lg font-bold">Nel<span class="text-indigo-600">Shop</span></a>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 md:px-6 py-6 md:py-10">
+        <h1 class="text-2xl font-bold text-slate-800 mb-8">Add New Product</h1>
+
+        <form id="addProductForm" class="space-y-10">
+            <!-- Basic Info -->
+            <section class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <h2 class="text-lg font-semibold text-slate-800 mb-6 pb-2 border-b border-slate-100">Basic Information</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label for="productName" class="block text-sm font-medium text-slate-700 mb-1">Product Name <span class="text-red-500">*</span></label>
+                        <input type="text" id="productName" name="productName" required placeholder="e.g. Wireless Bluetooth Earbuds" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label for="brandName" class="block text-sm font-medium text-slate-700 mb-1">Brand / Vendor Name <span class="text-red-500">*</span></label>
+                        <input type="text" id="brandName" name="brandName" required placeholder="e.g. Delta Threads" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-slate-700 mb-1">Category <span class="text-red-500">*</span></label>
+                        <select id="category" name="category" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors bg-white">
+                            <option value="">Select category</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="fashion">Fashion / Clothing</option>
+                            <option value="groceries">Groceries</option>
+                            <option value="local">Local Specialties</option>
+                            <option value="home">Home & Living</option>
+                            <option value="beauty">Beauty & Personal Care</option>
+                            <option value="sports">Sports & Outdoors</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-slate-700 mb-1">Price (₦) <span class="text-red-500">*</span></label>
+                        <input type="number" id="price" name="price" required min="0" step="1" placeholder="e.g. 25000" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Describe your product..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-colors resize-y"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Media Upload -->
+            <section class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <h2 class="text-lg font-semibold text-slate-800 mb-6 pb-2 border-b border-slate-100">Product Images</h2>
+                <div class="space-y-4">
+                    <div id="mediaDropzone" class="border-2 border-dashed border-slate-200 rounded-xl p-8 md:p-12 text-center hover:border-indigo-400 hover:bg-indigo-50/50 transition-colors cursor-pointer">
+                        <input type="file" id="mediaInput" accept="image/*" multiple class="hidden">
+                        <svg class="w-12 h-12 mx-auto text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6 6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <p class="text-slate-600 font-medium">Click or drag images here</p>
+                        <p class="text-slate-400 text-sm mt-1">PNG, JPG up to 5MB each</p>
+                    </div>
+                    <div id="mediaPreview" class="flex flex-wrap gap-3">
+                        <!-- Preview thumbnails appended by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specifications -->
+            <section class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <h2 class="text-lg font-semibold text-slate-800 mb-6 pb-2 border-b border-slate-100">Specifications</h2>
+                <p class="text-slate-500 text-sm mb-4">Add attributes like Color, Size, Model, etc.</p>
+                <div id="specsContainer" class="space-y-3">
+                    <!-- Dynamic spec rows -->
+                </div>
+                <button type="button" id="addSpecBtn" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-medium text-sm transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    Add Attribute
+                </button>
+            </section>
+
+            <!-- Stock (optional) -->
+            <section class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+                <h2 class="text-lg font-semibold text-slate-800 mb-6 pb-2 border-b border-slate-100">Inventory</h2>
+                <div>
+                    <label for="stock" class="block text-sm font-medium text-slate-700 mb-1">Stock Quantity</label>
+                    <input type="number" id="stock" name="stock" min="0" value="1" class="w-full md:w-48 px-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                </div>
+            </section>
+
+            <!-- Submit -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                <button type="submit" class="flex-1 px-6 py-3.5 rounded-xl bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors shadow-sm">
+                    Save Product
+                </button>
+                <a href="brand-admin.html" class="flex-1 sm:flex-none px-6 py-3.5 rounded-xl border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 text-center transition-colors">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </main>
+
+    <script src="../assets/js/store.js"></script>
+    <script src="../assets/js/add-product.js"></script>
+</body>
+</html>

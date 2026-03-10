@@ -155,10 +155,14 @@
     });
   }
 
-  function updateCartBadge() {
+  function updateCartBadge(animate = false) {
     const count = getCartItemCount();
     cartCount.textContent = count;
     cartCount.classList.toggle('hidden', count === 0);
+    if (animate && cartCount) {
+      cartCount.classList.add('cart-badge-pulse');
+      setTimeout(() => cartCount.classList.remove('cart-badge-pulse'), 500);
+    }
   }
 
   // ========== CART DRAWER UI ==========
@@ -182,6 +186,21 @@
     isOpen ? closeCart() : openCart();
   }
 
+  function setAddToCartAddedState(btn) {
+    const id = btn.dataset.id;
+    btn.classList.add('add-to-cart-added');
+    btn.classList.remove('bg-charcoal-900', 'hover:bg-accent');
+    btn.classList.add('bg-green-600');
+    btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Added';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.classList.remove('add-to-cart-added', 'bg-green-600');
+      btn.classList.add('bg-charcoal-900', 'hover:bg-accent');
+      btn.innerHTML = 'Add to Cart';
+      btn.disabled = false;
+    }, 2000);
+  }
+
   // ========== ELITE PRODUCT CARD ==========
 
   function getStockIndicator(stock) {
@@ -190,10 +209,26 @@
     return { class: 'bg-green-100 text-green-700', text: 'In Stock' };
   }
 
+  function renderRatingStars(rating) {
+    const r = Math.min(5, Math.max(0, rating || 0));
+    const full = Math.floor(r);
+    const half = r % 1 >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    const starSvg = (filled) =>
+      `<svg class="w-4 h-4 ${filled ? 'text-yellow-400' : 'text-slate-200'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+    let html = '';
+    for (let i = 0; i < full; i++) html += starSvg(true);
+    if (half) html += starSvg(true);
+    for (let i = 0; i < empty; i++) html += starSvg(false);
+    return html;
+  }
+
   function renderProductCard(product) {
     const stockInfo = getStockIndicator(product.stock);
     const discount = NelShop.getDiscountPercent(product);
     const inWishlist = NelShop.isInWishlist(product.id);
+    const rating = product.rating ?? 4.5;
+    const reviewsCount = product.reviewsCount ?? 0;
     return `
       <article class="group relative flex flex-col h-full bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 ease-in-out" data-product-id="${product.id}">
         <a href="product-details.html?id=${product.id}" class="block relative aspect-[4/5] overflow-hidden bg-slate-100 shrink-0">
@@ -214,12 +249,17 @@
         </a>
         <div class="flex-1 flex flex-col p-4">
           <div class="flex-1">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="flex">${renderRatingStars(rating)}</span>
+              <span class="text-sm text-charcoal-500">${rating}</span>
+              <span class="text-xs text-charcoal-400">(${reviewsCount})</span>
+            </div>
             <div class="relative">
               <p class="text-xl font-bold text-accent bg-white/80 backdrop-blur rounded-lg px-2 py-1 inline-block">${NelShop.formatNaira(product.price)}</p>
             </div>
             <h3 class="font-medium text-charcoal-900 line-clamp-2 min-h-[2.5rem] mt-2">${product.name}</h3>
           </div>
-          <button type="button" class="add-to-cart w-full mt-3 py-2.5 rounded-xl bg-charcoal-900 text-white text-sm font-medium hover:bg-accent transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shrink-0" data-id="${product.id}">Add to Cart</button>
+          <button type="button" class="add-to-cart w-full mt-3 py-2.5 rounded-xl bg-charcoal-900 text-white text-sm font-medium transition-all duration-500 shrink-0 flex items-center justify-center gap-2" data-id="${product.id}">Add to Cart</button>
         </div>
       </article>
     `;
@@ -231,11 +271,10 @@
     productGrid.querySelectorAll('.add-to-cart').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
+        if (btn.classList.contains('add-to-cart-added')) return;
         addToCart(btn.dataset.id);
-        const card = btn.closest('article');
-        card.classList.add('ring-2', 'ring-accent', 'ring-offset-2');
-        setTimeout(() => card.classList.remove('ring-2', 'ring-accent', 'ring-offset-2'), 600);
-        openCart();
+        updateCartBadge(true);
+        setAddToCartAddedState(btn);
       });
     });
 
@@ -278,8 +317,8 @@
     `;
     quickViewContent.querySelector('.add-quick-cart').addEventListener('click', () => {
       addToCart(product.id);
+      updateCartBadge(true);
       closeQuickView();
-      openCart();
     });
     quickViewOverlay.classList.remove('opacity-0', 'pointer-events-none');
     quickViewModal.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
@@ -368,9 +407,34 @@
     }
   }
 
+  // ========== HERO BACKGROUND SLIDESHOW ==========
+
+  function initHeroSlideshow() {
+    const slides = document.querySelectorAll('[data-hero-slide]');
+    if (slides.length === 0) return;
+    let currentIndex = 0;
+    const INTERVAL_MS = 7000;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('opacity-100', i === index);
+        slide.classList.toggle('opacity-0', i !== index);
+      });
+      currentIndex = index;
+    }
+
+    function nextSlide() {
+      showSlide((currentIndex + 1) % slides.length);
+    }
+
+    showSlide(0);
+    setInterval(nextSlide, INTERVAL_MS);
+  }
+
   // ========== INIT ==========
 
   function init() {
+    initHeroSlideshow();
     renderProducts();
     renderCart();
     updateCartBadge();
