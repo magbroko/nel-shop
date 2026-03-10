@@ -213,16 +213,27 @@ function isInWishlist(productId) {
   return getWishlist().includes(productId);
 }
 
-// ========== PRODUCT HELPERS ==========
+// ========== PRODUCT HELPERS (with Product Sync) ==========
+
+function getDisplayProducts() {
+  if (typeof NelShopSync !== 'undefined') {
+    return NelShopSync.getApprovedProducts();
+  }
+  return PRODUCTS;
+}
 
 function getProductById(id) {
+  if (typeof NelShopSync !== 'undefined') {
+    const synced = NelShopSync.getProductById(id);
+    if (synced) return synced;
+  }
   return PRODUCTS.find((p) => p.id === id) || null;
 }
 
 function getRelatedProducts(productId, limit = 4) {
   const product = getProductById(productId);
   if (!product) return [];
-  return PRODUCTS.filter((p) => p.id !== productId && p.category === product.category).slice(0, limit);
+  return getDisplayProducts().filter((p) => p.id !== productId && p.category === product.category).slice(0, limit);
 }
 
 function getDiscountPercent(product) {
@@ -239,7 +250,7 @@ const CATEGORIES = [
   { id: 'local', label: 'Local Specialties', slug: 'local' },
 ];
 
-const BRANDS = [...new Set(PRODUCTS.map((p) => p.brand))].sort();
+const BRANDS = [...new Set(getDisplayProducts().map((p) => p.brand))].filter(Boolean).sort();
 const CONDITIONS = ['New', 'Refurbished', 'Pre-owned'];
 
 function filterProducts(options = {}) {
@@ -252,12 +263,13 @@ function filterProducts(options = {}) {
     asabaExpressOnly = false,
     searchQuery = '',
   } = options;
+  const products = getDisplayProducts();
 
-  return PRODUCTS.filter((p) => {
+  return products.filter((p) => {
     if (category && p.category !== category) return false;
     if (p.price < minPrice || p.price > maxPrice) return false;
     if (brands.length && !brands.includes(p.brand)) return false;
-    if (conditions.length && !conditions.includes(p.condition)) return false;
+    if (conditions.length && !(conditions.includes(p.condition || 'New'))) return false;
     if (asabaExpressOnly && !p.asabaExpress) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -270,7 +282,7 @@ function filterProducts(options = {}) {
 function searchProducts(query, limit = 8) {
   if (!query || query.length < 2) return [];
   const q = query.toLowerCase();
-  return PRODUCTS.filter(
+  return getDisplayProducts().filter(
     (p) =>
       p.name.toLowerCase().includes(q) ||
       p.brand?.toLowerCase().includes(q) ||
@@ -282,6 +294,7 @@ function searchProducts(query, limit = 8) {
 
 window.NelShop = {
   PRODUCTS,
+  getDisplayProducts,
   CATEGORIES,
   BRANDS,
   CONDITIONS,

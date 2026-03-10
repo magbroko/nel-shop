@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-NG">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NelShop - Login or create your account. Shop, sell, or manage the platform.">
+    <title>Login | NelShop - Premium Shopping in Asaba</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: { 50: '#f7f7f7', 100: '#e3e3e3', 900: '#1a1a1a' },
+                        accent: { DEFAULT: '#2563eb', hover: '#1d4ed8' }
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'] },
+                    backdropBlur: { xs: '2px' }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="min-h-screen font-sans antialiased overflow-x-hidden">
+    <!-- Abstract background -->
+    <div class="fixed inset-0 -z-10">
+        <img src="https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&h=1080&fit=crop" alt="" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-indigo-900/60 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-slate-800/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-transparent to-emerald-500/20"></div>
+    </div>
+
+    <main class="min-h-screen flex items-center justify-center p-4 md:p-6">
+        <!-- Glassmorphism card -->
+        <div class="w-full max-w-md">
+            <!-- Logo -->
+            <a href="index.html" class="flex justify-center mb-8">
+                <span class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">Nel<span class="text-emerald-400">Shop</span></span>
+            </a>
+
+            <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md shadow-2xl overflow-hidden">
+                <!-- Tabs -->
+                <div class="flex border-b border-white/20">
+                    <button type="button" id="tabLogin" class="auth-tab flex-1 py-4 text-sm font-semibold text-white bg-white/20 transition-all duration-300">
+                        Login
+                    </button>
+                    <button type="button" id="tabSignUp" class="auth-tab flex-1 py-4 text-sm font-semibold text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300">
+                        Sign Up
+                    </button>
+                </div>
+
+                <div class="p-6 md:p-8">
+                    <!-- Login Form -->
+                    <form id="loginForm" class="auth-panel space-y-5">
+                        <div>
+                            <label for="loginEmail" class="sr-only">Email</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
+                                </span>
+                                <input type="email" id="loginEmail" name="email" required placeholder="Email" autocomplete="email"
+                                    class="w-full pl-12 pr-12 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all duration-300">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="loginPassword" class="sr-only">Password</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                </span>
+                                <input type="password" id="loginPassword" name="password" required placeholder="Password" autocomplete="current-password"
+                                    class="w-full pl-12 pr-12 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all duration-300">
+                                <button type="button" class="toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors" data-target="loginPassword" aria-label="Toggle password visibility">
+                                    <svg class="w-5 h-5 eye-open" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <svg class="w-5 h-5 eye-closed hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878a4.501 4.501 0 106.262 6.262M4 4l3 3m12 3l3 3M4 20l3-3m12 0l3-3"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <label class="flex items-center gap-2 text-white/80 cursor-pointer">
+                                <input type="checkbox" name="remember" class="rounded accent-emerald-500">
+                                Remember me
+                            </label>
+                            <a href="#" class="text-emerald-400 hover:text-emerald-300 transition-colors" onclick="alert('Password reset link would be sent to your email.'); return false;">Forgot Password?</a>
+                        </div>
+                        <div class="pt-1">
+                            <label class="block text-xs text-white/60 mb-2">Login as (demo)</label>
+                            <select id="loginRole" class="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white focus:ring-2 focus:ring-emerald-500/50 outline-none transition-all [&>option]:text-slate-800">
+                                <option value="customer">Shopper (Customer)</option>
+                                <option value="vendor">Brand Owner (Vendor)</option>
+                                <option value="admin">Administrator</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-semibold transition-all duration-300 shadow-lg shadow-emerald-500/25">
+                            Sign In
+                        </button>
+                    </form>
+
+                    <!-- Sign Up Form -->
+                    <form id="signUpForm" class="auth-panel hidden space-y-5">
+                        <div>
+                            <label for="signupName" class="sr-only">Full Name</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                </span>
+                                <input type="text" id="signupName" name="fullName" required placeholder="Full Name" autocomplete="name"
+                                    class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all duration-300">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="signupEmail" class="sr-only">Email</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/></svg>
+                                </span>
+                                <input type="email" id="signupEmail" name="email" required placeholder="Email" autocomplete="email"
+                                    class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all duration-300">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="signupPassword" class="sr-only">Password</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                </span>
+                                <input type="password" id="signupPassword" name="password" required placeholder="Password" autocomplete="new-password"
+                                    class="w-full pl-12 pr-12 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all duration-300">
+                                <button type="button" class="toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors" data-target="signupPassword" aria-label="Toggle password visibility">
+                                    <svg class="w-5 h-5 eye-open" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <svg class="w-5 h-5 eye-closed hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878a4.501 4.501 0 106.262 6.262M4 4l3 3m12 3l3 3M4 20l3-3m12 0l3-3"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-white/80 mb-3">Register As</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-all has-[:checked]:border-emerald-500/50 has-[:checked]:bg-emerald-500/10">
+                                    <input type="radio" name="registerRole" value="customer" class="accent-emerald-500" checked>
+                                    <span class="text-white">Shopper (Customer)</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-all has-[:checked]:border-emerald-500/50 has-[:checked]:bg-emerald-500/10">
+                                    <input type="radio" name="registerRole" value="vendor" class="accent-emerald-500">
+                                    <span class="text-white">Brand Owner (Vendor)</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-all has-[:checked]:border-emerald-500/50 has-[:checked]:bg-emerald-500/10">
+                                    <input type="radio" name="registerRole" value="admin" class="accent-emerald-500">
+                                    <span class="text-white">Administrator</span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Conditional Brand Name (Brand Owner only) -->
+                        <div id="brandNameField" class="grid transition-all duration-300 ease-out" style="grid-template-rows: 0fr;">
+                            <label for="signupBrandName" class="block text-sm text-white/80 mb-2">Brand Name</label>
+                            <div class="relative min-h-0 overflow-hidden">
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </span>
+                                    <input type="text" id="signupBrandName" name="brandName" placeholder="e.g. Samsung Asaba, Onga Kitchen"
+                                        class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all duration-300">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-semibold transition-all duration-300 shadow-lg shadow-emerald-500/25">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <p class="mt-6 text-center text-white/60 text-sm">
+                <a href="index.html" class="text-emerald-400 hover:text-emerald-300 transition-colors">← Back to Store</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>

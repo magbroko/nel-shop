@@ -5,7 +5,7 @@
  */
 
 (function () {
-  const PRODUCTS = NelShop.PRODUCTS;
+  const PRODUCTS = NelShop.getDisplayProducts ? NelShop.getDisplayProducts() : NelShop.PRODUCTS;
 
   // ========== DOM ELEMENTS ==========
 
@@ -335,6 +335,67 @@
 
   quickViewClose?.addEventListener('click', closeQuickView);
   quickViewOverlay?.addEventListener('click', closeQuickView);
+
+  // ========== ACCOUNT DROPDOWN ==========
+
+  const accountTrigger = document.getElementById('accountDropdownTrigger');
+  const accountDropdown = document.getElementById('accountDropdown');
+  const accountGuest = document.getElementById('accountDropdownGuest');
+  const accountLogged = document.getElementById('accountDropdownLogged');
+  const accountLogout = document.getElementById('accountLogout');
+  const accountChevron = document.getElementById('accountChevron');
+
+  function isLoggedIn() {
+    return !!(localStorage.getItem('nelshop_role') || localStorage.getItem('userRole') || localStorage.getItem('currentUser'));
+  }
+
+  function updateAccountDropdownContent() {
+    if (accountGuest && accountLogged) {
+      const logged = isLoggedIn();
+      accountGuest.classList.toggle('hidden', logged);
+      accountLogged.classList.toggle('hidden', !logged);
+    }
+  }
+
+  function openAccountDropdown() {
+    accountDropdown?.classList.remove('opacity-0', 'pointer-events-none');
+    accountTrigger?.setAttribute('aria-expanded', 'true');
+    accountChevron?.classList.add('rotate-180');
+  }
+
+  function closeAccountDropdown() {
+    accountDropdown?.classList.add('opacity-0', 'pointer-events-none');
+    accountTrigger?.setAttribute('aria-expanded', 'false');
+    accountChevron?.classList.remove('rotate-180');
+  }
+
+  function toggleAccountDropdown() {
+    const isOpen = !accountDropdown?.classList.contains('opacity-0');
+    if (isOpen) closeAccountDropdown();
+    else openAccountDropdown();
+  }
+
+  accountTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleAccountDropdown();
+  });
+
+  accountLogout?.addEventListener('click', () => {
+    localStorage.removeItem('nelshop_role');
+    localStorage.removeItem('nelshop_user');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('currentUser');
+    updateAccountDropdownContent();
+    closeAccountDropdown();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!accountDropdown?.contains(e.target) && !accountTrigger?.contains(e.target)) {
+      closeAccountDropdown();
+    }
+  });
+
+  updateAccountDropdownContent();
 
   // ========== MEGA MENU ==========
 

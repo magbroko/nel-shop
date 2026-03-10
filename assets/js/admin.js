@@ -112,8 +112,49 @@
     overlay?.addEventListener('click', closeSidebar);
   }
 
+  function renderPendingProducts() {
+    const tbody = document.getElementById('pendingProductsTable');
+    if (!tbody || typeof NelShopSync === 'undefined') return;
+
+    const all = NelShopSync.getProducts();
+    tbody.innerHTML = all
+      .map(
+        (p) => `
+      <tr class="hover:bg-slate-50">
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-lg overflow-hidden bg-slate-100 shrink-0">
+              <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
+            </div>
+            <span class="font-medium text-slate-800">${p.name}</span>
+          </div>
+        </td>
+        <td class="px-6 py-4 text-slate-600">${p.brand}</td>
+        <td class="px-6 py-4 text-slate-600">${formatNaira(p.price)}</td>
+        <td class="px-6 py-4 text-slate-600 capitalize">${p.category}</td>
+        <td class="px-6 py-4">
+          <span class="px-2 py-0.5 rounded-lg text-xs font-medium ${p.status === 'approved' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">${p.status}</span>
+        </td>
+        <td class="px-6 py-4">
+          ${p.status === 'pending' ? `<button type="button" class="product-approve-btn px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition-colors" data-id="${p.id}">Approve</button>` : '<span class="text-slate-400 text-sm">—</span>'}
+        </td>
+      </tr>
+    `
+      )
+      .join('');
+
+    tbody.querySelectorAll('.product-approve-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        NelShopSync.approveProduct(btn.dataset.id);
+        renderPendingProducts();
+        showToast('Product approved. It will now appear on the store.');
+      });
+    });
+  }
+
   function init() {
     renderBrandApplications();
+    renderPendingProducts();
     initNavigation();
     initSidebar();
   }

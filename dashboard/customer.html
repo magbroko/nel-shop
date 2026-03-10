@@ -65,6 +65,7 @@
 
         <!-- Main content -->
         <main class="flex-1 p-4 md:p-6 lg:p-8 min-w-0">
+            <p id="welcome-text" class="text-lg text-gray-600 mb-6 font-medium"></p>
             <!-- My Orders (default) -->
             <div id="view-orders" class="view-panel">
                 <h2 class="text-xl font-bold text-gray-800 mb-6">My Orders</h2>
@@ -120,6 +121,13 @@
     </div>
 
     <script src="../assets/js/store.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const userName = localStorage.getItem('currentUser') || 'Valued Guest';
+        const welcomeEl = document.querySelector('#welcome-text');
+        if (welcomeEl) welcomeEl.textContent = `Welcome back, ${userName}!`;
+      });
+    </script>
     <script src="../assets/js/customer.js"></script>
 </body>
 </html>
